@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='pag1.css') }}">
+</head>
+<body>
+    <center><h1>Atividade</h1></center>
+
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Modal</p>
+        </div>
+
+        
+    </div>
+    <br>
+    <br>
+    <a href="{{ url_for('produtos', pag=1) }}">Próximo</a>
+    <br><br>
+
+    {% if bolos %}
+        {{ bolos }}
+    {% else %}
+        Não tem bolos
+    {% endif %}    
+
+    <script src="{{ url_for('static',filename='modal.js') }}"> </script> <!---Puxar js-->
+</body>
+</html>
