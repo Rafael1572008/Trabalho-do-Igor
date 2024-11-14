@@ -24,14 +24,21 @@
     </div>
     <br>
     <br>
-    <a href="{{ url_for('produtos', pag=1) }}">Próximo</a>
     <br><br>
 
-    {% if bolos %}
-        {{ bolos }}
-    {% else %}
-        Não tem bolos
-    {% endif %}    
+    {% for bolo in itens %}
+        <li>{{ bolo }}</li>
+    {% endfor%}
+    
+    {% if pagina < total %}
+        <a href="{{ url_for('bolo.produtos', pag=pagina+1) }}">Proximo</a>
+    {% endif %}
+    
+    <span>{{ pagina }} de {{ total }}</span>
+    
+    {% if pagina > 1 %}
+        <a href="{{ url_for('bolo.produtos', pag=pagina-1) }}">voltar </a>
+    {% endif %}
 
     <script src="{{ url_for('static',filename='modal.js') }}"> </script> <!---Puxar js-->
 </body>
