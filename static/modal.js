@@ -5,43 +5,37 @@ var modalContent = document.getElementById("modal-details");  // Selecionar o co
 // Seleciona todos os botões "Ver Detalhes"
 var buttons = document.querySelectorAll(".open-modal");
 
-buttons.forEach(button => {
+buttons.forEach(button => {                          // Interar sobre os botões
   button.onclick = function() {
-    var produtoId = this.getAttribute('data-id');  // Obtém o ID do produto
+    var produtoId = this.getAttribute('data-bolo');  // Obtém o ID do bolo
 
-    // Faz a requisição AJAX para pegar os detalhes do produto
-    fetch(`/proc/${produtoId}`)
-      .then(response => response.json())
-      .then(data => {
-        // Verifica se os dados foram recebidos corretamente
-        if (data.nome) {
-          // Preenche o conteúdo do modal com os detalhes do produto
+    
+    fetch(`/proc/${produtoId}`)   // Enviar umarequisção HTTP
+      .then(res => res.json())    // Converter de json para objeto a resposta do fetch 
+      .then(data => {             // Recebe o objeto convertido e guarda em data
+        if (data.nome) {          // Se nome exitir, mostrar as propriedades do bolo
           modalContent.innerHTML = `
             <h2>${data.nome}</h2>
             <p>${data.descricao}</p>
             <p><strong>Tamanho:</strong> ${data.tamanho}</p>
           `;
-          // Exibe o modal
-          modal.style.display = "block";
-        } else {
+        } else {   // Se não, Mostrar um erro
           modalContent.innerHTML = `<p>Erro: Produto não encontrado.</p>`;
-          modal.style.display = "block";
         }
+        modal.style.display = "block"; // Exibe o modal (Block faz com que ocupe toda a div)
       })
-      .catch(error => {
-        modalContent.innerHTML = `<p>Erro ao carregar detalhes: ${error.message}</p>`;
+      .catch(err => {   // Caso a requisição falhe, mostra o erro (catch captura erros)
+        modalContent.innerHTML = `<p>Erro ao carregar detalhes: ${err.message}</p>`;
         modal.style.display = "block";
-      });
-  };
-});
+      });  
+      };
+    });
 
-// Fecha o modal ao clicar no botão "x"
-span.onclick = function() {
+span.onclick = function() {  // Fecha o modal ao clicar no botão "x"
   modal.style.display = "none";
 }
 
-// Fecha o modal ao clicar fora do conteúdo do modal
-window.onclick = function(event) {
+window.onclick = function(event) {  // Fecha o modal ao clicar fora do conteúdo do modal
   if (event.target == modal) {
     modal.style.display = "none";
   }

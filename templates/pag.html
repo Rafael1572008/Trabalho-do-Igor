@@ -7,39 +7,42 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='pag1.css') }}">
 </head>
 <body>
-    <center><h1>Atividade</h1></center>
+    <center><h1>Casa do bolo</h1></center>
 
-    <!-- Lista de produtos -->
-    <ul>
-        {% for bolo in itens %}
-            <li>
-                {{ bolo.nome }} - {{ bolo.tamanho }}
-                <button class="open-modal" data-id="{{ bolo.id }}">Ver Detalhes</button>
-            </li>
-        {% endfor %}
-    </ul>
+    <div id="container">
+        <ul>   <!-- Lista de produtos -->
+            {% for bolo in itens %}
+                <li>
+                    {{ bolo.nome }} - {{ bolo.tamanho }}
+                    <button class="open-modal" data-bolo="{{ bolo.id }}">Ver Detalhes</button>
+                </li>
+            {% endfor %}
+        </ul>
+ 
 
-    <!-- Paginação -->
-    {% if pagina < total %}
-        <a href="{{ url_for('bolo.produtos', pag=pagina+1) }}">Próximo</a>  <!-- Paginação próximo -->
-    {% endif %}
-    
-    <span>{{ pagina }} de {{ total }}</span>  <!-- Exibir a página atual -->
-    
-    {% if pagina > 1 %}
-        <a href="{{ url_for('bolo.produtos', pag=pagina-1) }}">Voltar</a>  <!-- Paginação voltar -->
-    {% endif %}
+        <div id="pag">
+            {% if pagina > 1 %}
+            <a href="{{ url_for('bolo.produtos', pag=pagina-1) }}">Voltar</a>  <!-- Paginação voltar -->
+            {% endif %}
+        
+            <span>{{ pagina }} de {{ total }}</span>  <!-- Exibir a página atual -->
+            
+            {% if pagina < total %}   <!-- Paginação -->
+                <a href="{{ url_for('bolo.produtos', pag=pagina+1) }}">Próximo</a>  <!-- Paginação próximo -->
+            {% endif %}
+        </div>
 
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modal-details">
-                <!-- O conteúdo será carregado aqui dinamicamente via JavaScript -->
+        <div id="myModal" class="modal">   <!-- Modal -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="modal-details">
+                    <!-- Conteudo que vem do js -->
+                </div>
             </div>
+        </div>
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='modal.js') }}"></script> <!-- Puxando o JS -->
+    <script src="{{ url_for('static', filename='modal.js') }}"></script> <!-- Puxar o js -->
 </body>
 </html>
